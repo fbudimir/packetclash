@@ -103,7 +103,7 @@ python main.py --har /path/to/file.har
 
 ## Running the Benchmark Analysis
 
-To run a comparative benchmark analysis across different protocols and attack types, use the `benchmark.py` script while inside the active `packetclash` virtual environment.
+To run a benchmark analysis across different protocols and attack types, use the `benchmark.py` script while inside the active `packetclash` virtual environment.
 
 ### Options (`benchmark.py --help`)
 
