@@ -1,0 +1,10 @@
+{
+  "name": "bank-node",
+  "version": "1.0.0",
+  "description": "Node.js native HTTP/2 bank target for race condition research",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.11.0"
+  }
+}

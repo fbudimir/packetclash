@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bank POC</title>
+
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #1e293b;
+            padding: 2.5rem;
+            border-radius: 12px;
+            width: 400px;
+            text-align: center;
+        }
+        .balance {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.75rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            border-radius: 6px;
+            font-size: 1.1rem;
+        }
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        button {
+            flex: 1;
+            padding: 0.75rem;
+            cursor: pointer;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        button:hover { background: #2563eb; }
+        .message { margin-top: 1rem; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Bank POC</h2>
+        <div class="balance" id="balance">0.00€</div>
+        <input type="number" id="amount" placeholder="Amount">
+        <div class="actions">
+            <button onclick="transaction('/api/deposit')" style="flex: 1 1 100%;">Deposit</button>
+            <button onclick="transaction('/api/withdraw/rmw')">Withdraw (RMW)</button>
+            <button onclick="transaction('/api/withdraw/sql-vulnerable')">Withdraw (SQL-V)</button>
+            <button onclick="transaction('/api/withdraw/sql-atomic')">Withdraw (SQL-A)</button>
+        </div>
+        <div id="message" class="message"></div>
+    </div>
+
+
+    <script>
+        async function updateBalance() {
+            const res = await fetch('/api/balance');
+            const data = await res.json();
+            document.getElementById('balance').innerText = parseFloat(data.balance).toFixed(2) + '€';
+        }
+
+        async function transaction(endpoint) {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const msgEl = document.getElementById('message');
+            if (isNaN(amount) || amount <= 0) return;
+
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount })
+            });
+            const data = await res.json();
+            
+            msgEl.innerText = data.msg || data.error || 'Transaction done';
+            msgEl.style.color = res.ok ? '#10b981' : '#ef4444';
+            if (res.ok) {
+                document.getElementById('amount').value = '';
+                updateBalance();
+            }
+        }
+
+        updateBalance();
+    </script>
+</body>
+</html>

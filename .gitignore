@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Certificates
+targets/certs/*
+!targets/certs/
+
+# Test files
+packetclash/test.txt
+packetclash/request_test.txt
+
+# Benchmark data
+benchmark_data/
