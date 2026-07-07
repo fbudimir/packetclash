@@ -1,4 +1,4 @@
-# DIPL_RAD
+# packetclash - Race Condition Testing Tool
 
 This repository contains the source code for the `packetclash` tool and several test web applications (`targets`) developed for analyzing and exploiting race conditions.
 
@@ -57,6 +57,33 @@ The tool requires Python 3.12.7+ and a virtual environment.
    pip install -r requirements.txt
    ```
 
+### Options (`main.py --help`)
+
+```text
+options:
+  -h, --help            show this help message and exit
+  -f HAR, --har HAR     Path to the HAR file (interactive wizard)
+  -u URL, --url URL     Target URL for manual configuration
+  -r RAW, --raw RAW     Path to a raw HTTP request file (e.g. from Burp Suite)
+  -a {spray,last-byte,single-packet}, --attack {spray,last-byte,single-packet}
+                        Attack technique to use (default: spray), ignored when using --har
+  -c COUNT, --count COUNT
+                        Number of concurrent requests to send (default: 20), ignored when using --har
+  --delay DELAY         Delay in ms between spray requests (default: 0), ignored when using --har, only used with --attack spray
+  --http2               Use HTTP/2 protocol for spray attack (default: False), ignored when using --har, only used with --attack spray
+  --single              Use a single connection (multiplexed/sequential) for spray, ignored when using --har, only used with --attack spray
+  --multi               Use multiple isolated connections for spray (default), ignored when using --har, only used with --attack spray
+  -X REQUEST, --request REQUEST
+                        HTTP Method (default: POST), only used with --url
+  -d DATA, --data DATA  Raw request body (e.g., JSON string), only used with --url
+  -H HEADER, --header HEADER
+                        HTTP headers (e.g., -H 'Authorization: Bearer ...'), only used with --url
+  -v, --verbose         Enable verbose library output (default: False), ignored when using --har, only used with --attack single-packet
+  -e EXPECTED, --expected EXPECTED
+                        Expected number of normal 200 responses (default: 1), ignored when using --har
+  --no-tls              Force HTTP (no TLS) (default: https), only used with --raw
+```
+
 ### Example Usages
 
 **Manual configuration (URL):**
@@ -78,7 +105,38 @@ python main.py --har /path/to/file.har
 
 To run a comparative benchmark analysis across different protocols and attack types, use the `benchmark.py` script while inside the active `packetclash` virtual environment.
 
-Example usage:
+### Options (`benchmark.py --help`)
+
+```text
+options:
+  -h, --help            show this help message and exit
+  --url URL             Base URL of the target
+                        (default: https://127.0.0.1:5003)
+  --raceable-route PATH
+                        Route to attack with concurrent requests
+                        (default: /api/withdraw/rmw)
+  --reset-state-route PATH
+                        Route called to reset state before each run
+                        (default: /api/deposit)
+  --check-state-route PATH
+                        Route called to check current state
+                        (default: /api/balance)
+  --reset-state-body JSON
+                        Full JSON body sent to the reset-state route
+                        (default: '{"amount": 1000}')
+  --protocol {http1,http2,both}
+                        Which protocol attacks to include:
+                          http1: spray, last-byte
+                          http2: spray --http2 --single, spray --http2, single-packet
+                          both: all of the above
+                          (default: both)
+  --iterations N, -n N  Number of runs per attack type (default: 50)
+  --concurrency N, -c N
+                        Concurrent requests per run (default: 50)
+```
+
+### Example Usages
+
 ```bash
 python benchmark.py \
   --url https://localhost:5003 \
