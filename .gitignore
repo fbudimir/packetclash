@@ -16,8 +16,8 @@ dist/
 *.egg
 
 # Certificates
-targets/certs/*
-!targets/certs/
+targets/certs/server.crt
+targets/certs/server.key
 
 # Test files
 packetclash/test.txt
