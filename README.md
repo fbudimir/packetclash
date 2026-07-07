@@ -25,11 +25,15 @@ The test applications run in Docker containers. Ensure you have Docker and Docke
    ```bash
    cd targets
    ```
-2. Generate a certificate and key for HTTPS communication:
+2. Create a `certs` directory within the `targets` directory:
+   ```bash
+   mkdir certs
+   ```
+3. Generate a certificate and key for HTTPS communication:
    ```bash
    openssl req -x509 -newkey rsa:2048 -keyout certs/server.key -out certs/server.crt -days 365 -nodes
    ```
-3. Build and start the containers:
+4. Build and start the containers:
    ```bash
    docker compose up
    ```
