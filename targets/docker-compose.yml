@@ -55,6 +55,7 @@ services:
       - DB_URL=postgresql://admin:password@postgres-db:5432/bank_db
       - PORT=5003
       - NODE_ENV=production
+      - WORKERS=1
     expose:
       - "5003"
 

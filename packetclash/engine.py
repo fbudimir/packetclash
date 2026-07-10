@@ -299,8 +299,6 @@ def single_packet_attack(target, count, verbose=False, expected_successes: int =
         port_number=target.port
     )
 
-    console.print(f"[*] Establishing TLS connection to {target.hostname}:{target.port}...")
-    h2_conn.setup_connection()
 
     # building headers string in h2spacex format: "key: value\nkey2: value2"
     # excluding pseudo-headers (:method, :path, etc.)
@@ -345,15 +343,20 @@ def single_packet_attack(target, count, verbose=False, expected_successes: int =
 
 
 
+    console.print(f"[*] Establishing TLS connection to {target.hostname}:{target.port}...")
+    h2_conn.setup_connection()
+
+    h2_conn.send_ping_frame()
 
 
     # send partial frames (headers + body-minus-last-byte) for all streams
     console.print("[bold yellow][!] Sending headers/partial data...[/bold yellow]")
     h2_conn.send_frames(all_partial)
 
-    # ping warms up connection so the server is ready (h2spacex version)
-    h2_conn.send_ping_frame()
     time.sleep(0.1)
+
+
+    h2_conn.send_ping_frame()
 
     # fire all last bytes in one write, "single packet"
     console.print("[bold yellow][!] FIRING TRIGGER PACKET...[/bold yellow]")
