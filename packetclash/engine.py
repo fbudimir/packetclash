@@ -118,7 +118,7 @@ async def execute_spray(target: AttackTarget, count: int, delay_ms: int = 0, htt
                 await client.get(base_url, timeout=5.0)
 
                 ########################################################################
-                time.sleep(0.2) # necessary for packet and request rate limiting
+                # time.sleep(0.2) # necessary for packet and request rate limiting
                 ########################################################################
 
             except Exception:
@@ -143,7 +143,7 @@ async def execute_spray(target: AttackTarget, count: int, delay_ms: int = 0, htt
 
 
 def run_spray(target: AttackTarget, count: int, delay_ms: int = 0, http2: bool = False, multi_conn: bool = True, expected_successes: int = 1):
-    # wrapper to start the asyncio event loop.
+    # wrapper to start the asyncio event loop
     asyncio.run(execute_spray(target, count, delay_ms, http2, multi_conn, expected_successes))
 
 

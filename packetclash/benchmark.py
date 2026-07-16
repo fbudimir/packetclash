@@ -24,7 +24,7 @@ DEFAULT_RESET_STATE_ROUTE = "/api/deposit"
 DEFAULT_CHECK_STATE_ROUTE = "/api/balance"
 DEFAULT_RESET_STATE_BODY  = '{"amount": 1000}'
 DEFAULT_PROTOCOL          = "both"   # "http1", "http2", or "both"
-DEFAULT_ITERATIONS        = 50
+DEFAULT_ITERATIONS        = 10
 DEFAULT_CONCURRENCY       = 50
 
 

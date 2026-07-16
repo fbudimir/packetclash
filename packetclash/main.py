@@ -39,7 +39,7 @@ def main():
     # attack choice and number of requests
     parser.add_argument("-a", "--attack", choices=['spray', 'last-byte', 'single-packet'], 
                         default='spray', help="Attack technique to use (default: spray), ignored when using --har")
-    parser.add_argument("-c", "--count", type=int, default=50, 
+    parser.add_argument("-c", "--count", type=int, default=20, 
                         help="Number of concurrent requests to send (default: 20), ignored when using --har")
 
     # SPRAY ONLY
@@ -64,7 +64,7 @@ def main():
     parser.add_argument("-e", "--expected", type=int, default=1,
                         help="Expected number of normal 200 responses (default: 1), ignored when using --har")
     parser.add_argument("--no-tls", action="store_true",
-                        help="Force HTTP (no TLS) (default: https), only used with --raw")
+                        help="Force HTTP (no TLS) (default: False), only used with --raw")
 
     args = parser.parse_args()
 
