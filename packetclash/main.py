@@ -28,7 +28,7 @@ def parse_manual_headers(header_list):
     return headers
 
 def main():
-    parser = argparse.ArgumentParser(description="PacketClash - Race Condition Testing Tool")
+    parser = argparse.ArgumentParser(description="packetclash - Race Condition Testing Tool")
     
     # mutually exclusive pocetni odabir nacina rada
     input_group = parser.add_mutually_exclusive_group(required=True)
@@ -71,7 +71,7 @@ def main():
 
 
     # welcome
-    console.print(f"[bold cyan]PacketClash v0.1[/bold cyan]")
+    console.print(f"[bold cyan]packetclash v1.0[/bold cyan]")
     if args.har:
         console.print(f"[*] Mode: [bold yellow]HAR Discovery (Interactive)[/bold yellow]\n")
     elif args.raw:

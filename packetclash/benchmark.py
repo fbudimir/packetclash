@@ -30,7 +30,7 @@ DEFAULT_CONCURRENCY       = 50
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="PacketClash Benchmark — Race Condition Attack Benchmarker",
+        description="packetclash Benchmark - Race Condition Attack Benchmarker",
         formatter_class=argparse.RawTextHelpFormatter
     )
     parser.add_argument(
