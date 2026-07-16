@@ -39,8 +39,8 @@ def main():
     # attack choice and number of requests
     parser.add_argument("-a", "--attack", choices=['spray', 'last-byte', 'single-packet'], 
                         default='spray', help="Attack technique to use (default: spray), ignored when using --har")
-    parser.add_argument("-c", "--count", type=int, default=20, 
-                        help="Number of concurrent requests to send (default: 20), ignored when using --har")
+    parser.add_argument("-c", "--count", type=int, default=50, 
+                        help="Number of concurrent requests to send (default: 50), ignored when using --har")
 
     # SPRAY ONLY
     # delay and protocol choice
